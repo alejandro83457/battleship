@@ -27,3 +27,25 @@ test('if ship will overlap another ship', () => {
   expect(board.placeShip([0, 0], 2)).toBe(false);
   expect(board.placeShip([0, 1], 2)).toBe(false);
 });
+
+test('if ship can take a hit', () => {
+  let board = new Gameboard();
+  board.placeShip([0, 0], 2);
+  expect(board.receiveAttack([0, 0])).toBe(true);
+});
+
+test('if attack is invalid because no ship exists', () => {
+  let board = new Gameboard();
+  expect(board.hasBeenAttacked([0, 0])).toBe(false);
+  expect(board.receiveAttack([0, 0])).toBe(false);
+  expect(board.hasBeenAttacked([0, 0])).toBe(true);
+});
+
+test('if ship spot has already been attacked', () => {
+  let board = new Gameboard();
+  board.placeShip([0, 0], 2);
+  expect(board.hasBeenAttacked([0, 0])).toBe(false);
+  expect(board.receiveAttack([0, 0])).toBe(true);
+  expect(board.hasBeenAttacked([0, 0])).toBe(true);
+  expect(board.receiveAttack([0, 0])).toBe(false);
+});

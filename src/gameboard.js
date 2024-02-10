@@ -13,11 +13,12 @@ class Gameboard {
       this.#board[i] = Array(7);
       // NOTE: need to specify new objects for EACH element
       for (let j = 0; j < this.#board.length; j++)
-        this.#board[i][j] = { hits: 0 };
+        this.#board[i][j] = { hit: false };
     }
     this.#ships = [];
   }
 
+  // ----- PLACE SHIP -----
   placeShip(coords, length) {
     let [x, y] = coords;
 
@@ -30,7 +31,7 @@ class Gameboard {
 
     // if ship is already place in coords
     for (let i = 0; i < length; i++) {
-      if ('ship' in this.#board[x][y + i]) {
+      if (this.#board[x][y + i].ship) {
         console.log('Unable to place ship. Spot already taken.');
         return false;
       }
@@ -48,10 +49,24 @@ class Gameboard {
     return true;
   }
 
+  // ----- RECEIVE ATTACK -----
   receiveAttack(coords) {
     let [x, y] = coords;
-    if (this.#board[x][y]) return false;
-    // if()
+    if (!this.#board[x][y].ship) {
+      this.#board[x][y].hit = true;
+      return false;
+    }
+    if (this.#board[x][y].hit) return false;
+    this.#board[x][y].ship.hit();
+    this.#board[x][y].hit = true;
+    return true;
+  }
+
+  hasBeenAttacked(coords) {
+    let [x, y] = coords;
+    if (this.#board[x][y] == 0) return false;
+    if (this.#board[x][y].hit) return true;
+    return false;
   }
 
   // debugging purposes

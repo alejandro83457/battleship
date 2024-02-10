@@ -1,6 +1,5 @@
 import Gameboard from './gameboard';
-import Ship from './ship';
-import displayBoard from './dom';
+import { displayBoard1 } from './dom';
 import Player from './player';
 
 function getBotMoves(board) {
@@ -13,24 +12,36 @@ function getBotMoves(board) {
   while (!board.placeShip(bot.getMove(), 5)) {}
 }
 
+function getPlayerMoves(board) {
+  let lens = [2, 3, 3, 4, 5];
+  let cells = document.querySelectorAll('.col1');
+  cells.forEach((cell) => {
+    cell.addEventListener('click', (e) => addShip(e, board, lens));
+  });
+}
+
+function addShip(e, board, lens) {
+  let id = e.target.getAttribute('id').split('');
+  id.shift(); // removes the first char
+  let coords = id.map((i) => parseInt(i)); // converts to ints
+
+  if (board.placeShip(coords, lens[0])) {
+    if (lens.length == 1) play();
+    displayBoard1(board.board);
+    lens.shift();
+  }
+}
+
 function setup() {
   let board1 = new Gameboard();
   let board2 = new Gameboard();
 
   getBotMoves(board2);
+  getPlayerMoves(board1);
+}
 
-  board1.placeShip([0, 5], 2);
-  board1.placeShip([1, 3], 3);
-  board1.placeShip([4, 0], 3);
-  board1.placeShip([6, 3], 4);
-  board1.placeShip([3, 1], 5);
-
-  board1.receiveAttack([0, 5]);
-  board1.receiveAttack([0, 6]);
-  board1.receiveAttack([6, 3]);
-
-  displayBoard(board1.board);
-  // displayBoard(board2.board);
+function play() {
+  console.log('play');
 }
 
 setup();

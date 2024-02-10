@@ -23,6 +23,10 @@ class Gameboard {
     return this.#board;
   }
 
+  get ships() {
+    return this.#ships;
+  }
+
   // ----- PLACE SHIP -----
   placeShip(coords, length) {
     let [x, y] = coords;
@@ -101,10 +105,6 @@ class Gameboard {
     // this.#board.forEach((row) => console.log(row.join(' ')));
     this.#board.forEach((row) => console.log(row));
     console.log(' ');
-  }
-
-  printShips() {
-    this.#ships.forEach((ship) => console.log(ship.ship));
   }
 }
 

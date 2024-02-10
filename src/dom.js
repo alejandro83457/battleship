@@ -1,4 +1,4 @@
-function displayBoard(board) {
+export function displayBoard1(board) {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board.length; j++) {
       if (!board[i][j].ship) continue;
@@ -15,5 +15,3 @@ function displayBoard(board) {
     }
   }
 }
-
-export default displayBoard;

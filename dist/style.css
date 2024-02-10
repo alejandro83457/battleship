@@ -42,7 +42,8 @@ main {
   gap: 1px;
 }
 
-.col {
+.col1,
+.col2 {
   flex-grow: 1;
   background-color: white;
 }

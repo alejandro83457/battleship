@@ -4,7 +4,7 @@ function displayBoard(board) {
       if (!board[i][j].ship) continue;
       let el = document.querySelector(`#a${i}${j}`);
       if (!board[i][j].hit) {
-        el.style.backgroundColor = 'black';
+        el.style.backgroundColor = 'gray';
       }
       if (board[i][j].hit) {
         el.style.backgroundColor = 'darkred';

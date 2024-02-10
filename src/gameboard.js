@@ -52,21 +52,26 @@ class Gameboard {
   // ----- RECEIVE ATTACK -----
   receiveAttack(coords) {
     let [x, y] = coords;
+
+    // if ship DNE
     if (!this.#board[x][y].ship) {
       this.#board[x][y].hit = true;
       return false;
     }
+
+    // if ship exists and has been hit
     if (this.#board[x][y].hit) return false;
+
+    // if ship exists and hasn't been hit
     this.#board[x][y].ship.hit();
     this.#board[x][y].hit = true;
     return true;
   }
 
+  // ----- HAS BEEN ATTACKED -----
   hasBeenAttacked(coords) {
     let [x, y] = coords;
-    if (this.#board[x][y] == 0) return false;
-    if (this.#board[x][y].hit) return true;
-    return false;
+    return this.#board[x][y].hit;
   }
 
   // debugging purposes

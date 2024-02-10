@@ -5,6 +5,12 @@ test('if ship is in bounds', () => {
   expect(board.placeShip([0, 0], 2)).toBe(true);
 });
 
+test('if two ships are in bounds', () => {
+  let board = new Gameboard();
+  expect(board.placeShip([6, 0], 2)).toBe(true);
+  expect(board.placeShip([6, 2], 2)).toBe(true);
+});
+
 test('if ship is out of bounds', () => {
   let board = new Gameboard();
   expect(board.placeShip([7, 1], 1)).toBe(false);

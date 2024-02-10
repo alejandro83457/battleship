@@ -11,6 +11,11 @@ class Ship {
   isSunk() {
     return this.#hits >= this.#len;
   }
+  get ship() {
+    let len = this.#len;
+    let hits = this.#hits;
+    return { len, hits };
+  }
 }
 
 export default Ship;

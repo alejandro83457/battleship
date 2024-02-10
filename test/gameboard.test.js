@@ -49,3 +49,25 @@ test('if ship spot has already been attacked', () => {
   expect(board.hasBeenAttacked([0, 0])).toBe(true);
   expect(board.receiveAttack([0, 0])).toBe(false);
 });
+
+test('if ship has been sunk', () => {
+  let board = new Gameboard();
+  board.placeShip([0, 0], 2);
+  expect(board.hasBeenSunk([0, 0])).toBe(false);
+  board.receiveAttack([0, 0]);
+  expect(board.hasBeenSunk([0, 0])).toBe(false);
+  board.receiveAttack([0, 1]);
+  expect(board.hasBeenSunk([0, 0])).toBe(true);
+});
+
+test('if all ships have been sunk', () => {
+  let board = new Gameboard();
+  board.placeShip([0, 0], 2);
+  board.placeShip([1, 0], 1);
+  expect(board.allShipsSunk()).toBe(false);
+  board.receiveAttack([0, 0]);
+  board.receiveAttack([0, 1]);
+  expect(board.allShipsSunk()).toBe(false);
+  board.receiveAttack([1, 0]);
+  expect(board.allShipsSunk()).toBe(true);
+});

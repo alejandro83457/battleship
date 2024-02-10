@@ -1,7 +1,7 @@
 import Gameboard from './gameboard';
+import Ship from './ship';
 
-let board = new Gameboard();
-board.printBoard();
-console.log(board.placeShip([0, 0], 2));
-board.printBoard();
-console.log(board.placeShip([0, 2], 2));
+let ships = [new Ship(2), new Ship(3)];
+let ship = new Ship(3);
+ship.hit();
+console.log(ship);

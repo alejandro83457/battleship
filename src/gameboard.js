@@ -65,6 +65,12 @@ class Gameboard {
     // if ship exists and hasn't been hit
     this.#board[x][y].ship.hit();
     this.#board[x][y].hit = true;
+
+    // check if ship has been sunk
+    if (this.hasBeenSunk(coords)) {
+      this.#ships.pop();
+    }
+
     return true;
   }
 
@@ -72,6 +78,17 @@ class Gameboard {
   hasBeenAttacked(coords) {
     let [x, y] = coords;
     return this.#board[x][y].hit;
+  }
+
+  // ----- HAS BEEN SUNK -----
+  hasBeenSunk(coords) {
+    let [x, y] = coords;
+    return this.#board[x][y].ship.isSunk();
+  }
+
+  // ----- ALL SHIPS SUNK -----
+  allShipsSunk() {
+    return this.#ships.length == 0 ? true : false;
   }
 
   // debugging purposes

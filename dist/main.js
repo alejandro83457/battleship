@@ -1,1 +1,0 @@
-(()=>{"use strict";const t=class{#t;#s;constructor(t){this.#t=t,this.#s=0}hit(){this.#s++}isSunk(){return this.#s>=this.#t}get ship(){return{len:this.#t,hits:this.#s}}};new t(2),new t(3);let s=new t(3);s.hit(),console.log(s)})();

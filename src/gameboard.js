@@ -18,6 +18,11 @@ class Gameboard {
     this.#ships = [];
   }
 
+  // ----- GET BOARD -----
+  get board() {
+    return this.#board;
+  }
+
   // ----- PLACE SHIP -----
   placeShip(coords, length) {
     let [x, y] = coords;
@@ -27,7 +32,7 @@ class Gameboard {
     if (y < MIN_COORD || y > MAX_COORD) return false;
 
     // if partially out of bounds
-    if (y + length > MAX_COORD) return false;
+    if (y + length - 1 > MAX_COORD) return false;
 
     // if ship is already place in coords
     for (let i = 0; i < length; i++) {

@@ -28,11 +28,7 @@ function addShip(e) {
   let coords = id.map((i) => parseInt(i)); // converts to ints
 
   if (board1.placeShip(coords, lens[0])) {
-    console.log(lens.length);
-    if (lens.length == 1) {
-      console.log('lens is 1!');
-      allowPlayerAttack();
-    }
+    if (lens.length == 1) allowPlayerAttack();
     displayBoard1(board1.board);
     lens.shift();
   }
@@ -89,15 +85,19 @@ function removeEventListeners() {
 function displayWinner(winner) {
   let content = document.querySelector('#content');
   content.textContent = `${winner} is the winner!`;
-  clearBoards();
-  removeEventListeners();
-  setup();
+  setTimeout(() => {
+    clearBoards();
+    removeEventListeners();
+    setup();
+  }, 5000);
 }
 
 function setup() {
   board1 = new Gameboard();
   board2 = new Gameboard();
   lens = [2, 3, 3, 4, 5];
+  let content = document.querySelector('#content');
+  content.textContent = 'place your 5 ships below';
 
   getBotMoves();
   getPlayerMoves();

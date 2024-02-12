@@ -58,6 +58,11 @@ main {
   background-color: white;
 }
 
+.col1:hover,
+.col2:hover {
+  background-color: lightgray;
+}
+
 /* div {
   border: 1px solid black;
 } */

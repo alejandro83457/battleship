@@ -11,6 +11,7 @@ header {
   align-items: center;
   background-color: lightcyan;
 }
+
 footer {
   display: flex;
   justify-content: center;
@@ -24,6 +25,10 @@ main {
   align-items: center;
   justify-content: center;
   gap: 3rem;
+}
+
+#content {
+  font-size: 22px;
 }
 
 .board {

@@ -4,31 +4,35 @@ import Player from './player';
 
 let board1, board2;
 let bot = new Player();
+let lens;
 
-function getBotMoves(board) {
+function getBotMoves() {
   let bot = new Player();
   // loops will keep iterating until success
-  while (!board.placeShip(bot.getMove(), 2)) {}
-  while (!board.placeShip(bot.getMove(), 3)) {}
-  while (!board.placeShip(bot.getMove(), 3)) {}
-  while (!board.placeShip(bot.getMove(), 4)) {}
-  while (!board.placeShip(bot.getMove(), 5)) {}
+  while (!board2.placeShip(bot.getMove(), 2)) {}
+  while (!board2.placeShip(bot.getMove(), 3)) {}
+  while (!board2.placeShip(bot.getMove(), 3)) {}
+  while (!board2.placeShip(bot.getMove(), 4)) {}
+  while (!board2.placeShip(bot.getMove(), 5)) {}
 }
 
 function getPlayerMoves() {
-  let lens = [2, 3, 3, 4, 5];
   let cells = document.querySelectorAll('.col1');
   cells.forEach((cell) => {
-    cell.addEventListener('click', (e) => addShip(e, lens));
+    cell.addEventListener('click', addShip);
   });
 }
-function addShip(e, lens) {
+function addShip(e) {
   let id = e.target.getAttribute('id').split('');
   id.shift(); // removes the first char
   let coords = id.map((i) => parseInt(i)); // converts to ints
 
   if (board1.placeShip(coords, lens[0])) {
-    if (lens.length == 1) allowPlayerAttack();
+    console.log(lens.length);
+    if (lens.length == 1) {
+      console.log('lens is 1!');
+      allowPlayerAttack();
+    }
     displayBoard1(board1.board);
     lens.shift();
   }
@@ -37,9 +41,7 @@ function addShip(e, lens) {
 function allowPlayerAttack() {
   let cells = document.querySelectorAll('.col2');
   cells.forEach((cell) => {
-    cell.addEventListener('click', (e) => {
-      checkAttackSuccess(e);
-    });
+    cell.addEventListener('click', checkAttackSuccess);
   });
 }
 function checkAttackSuccess(e) {
@@ -73,16 +75,31 @@ function allowBotAttack() {
   }
 }
 
+function removeEventListeners() {
+  let cells = document.querySelectorAll('.col1');
+  cells.forEach((cell) => {
+    cell.removeEventListener('click', addShip);
+  });
+  cells = document.querySelectorAll('.col2');
+  cells.forEach((cell) => {
+    cell.removeEventListener('click', checkAttackSuccess);
+  });
+}
+
 function displayWinner(winner) {
+  let content = document.querySelector('#content');
+  content.textContent = `${winner} is the winner!`;
   clearBoards();
+  removeEventListeners();
   setup();
 }
 
 function setup() {
   board1 = new Gameboard();
   board2 = new Gameboard();
+  lens = [2, 3, 3, 4, 5];
 
-  getBotMoves(board2);
+  getBotMoves();
   getPlayerMoves();
 }
 

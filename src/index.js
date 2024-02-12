@@ -35,6 +35,8 @@ function addShip(e) {
 }
 
 function allowPlayerAttack() {
+  let content = document.querySelector('#content');
+  content.textContent = 'sink your opponent';
   let cells = document.querySelectorAll('.col2');
   cells.forEach((cell) => {
     cell.addEventListener('click', checkAttackSuccess);
@@ -85,9 +87,11 @@ function removeEventListeners() {
 function displayWinner(winner) {
   let content = document.querySelector('#content');
   content.textContent = `${winner} is the winner!`;
+
+  // show the board and who is the winner for a couple secs
+  removeEventListeners();
   setTimeout(() => {
     clearBoards();
-    removeEventListeners();
     setup();
   }, 5000);
 }
